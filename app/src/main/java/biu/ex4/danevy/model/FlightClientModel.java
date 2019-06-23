@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 
-public class FlightClientModel implements IClientModel {
+public class FlightClientModel implements ClientModel {
 
     private Socket socket;
     private boolean isOpen = false;

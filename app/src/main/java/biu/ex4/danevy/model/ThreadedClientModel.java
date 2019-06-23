@@ -6,13 +6,13 @@ import android.util.Log;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-public class ThreadedClientModel implements IClientModel {
+public class ThreadedClientModel implements ClientModel {
 
     private volatile boolean isRunning;
-    private IClientModel decorated;
+    private ClientModel decorated;
     private BlockingQueue<Runnable> blockingQueue;
 
-    public ThreadedClientModel(IClientModel client) {
+    public ThreadedClientModel(ClientModel client) {
         this.decorated = client;
         this.blockingQueue = new LinkedBlockingQueue<>();
         this.isRunning = true;

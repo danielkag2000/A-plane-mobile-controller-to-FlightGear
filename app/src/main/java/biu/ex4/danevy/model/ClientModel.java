@@ -1,6 +1,6 @@
 package biu.ex4.danevy.model;
 
-public interface IClientModel {
+public interface ClientModel {
 
     /**
      * Connect to a flight server.
