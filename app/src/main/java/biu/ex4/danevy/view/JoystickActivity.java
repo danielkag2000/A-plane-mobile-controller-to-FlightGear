@@ -16,7 +16,7 @@ import biu.ex4.danevy.view.joystick.OnJoystickValueChange;
 public class JoystickActivity extends AppCompatActivity {
 
     private Joystick joystick;
-    private ClientModel model;
+    private static ClientModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +33,12 @@ public class JoystickActivity extends AppCompatActivity {
     }
 
     private void initConnection(String ip, int port) {
-        // create and connect model
-        model = new ThreadedClientModel(new FlightClientModel());
-        model.connect(ip, port);
+        if (model == null) {
+            // create and connect model if it has not been created yet
+            model = new ThreadedClientModel(new FlightClientModel());
+            model.connect(ip, port);
+        }
+
 
         // send requests to change values
         joystick.setValueChangeListener((aileron, elevator) -> {
@@ -47,6 +50,9 @@ public class JoystickActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        model.disconnect();
+        if (model != null && isFinishing()) {
+            model.disconnect();
+            model = null;
+        }
     }
 }
