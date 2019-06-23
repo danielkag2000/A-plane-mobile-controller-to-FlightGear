@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             String ip = ipText.getText().toString();
-            int port = Integer.parseInt(ipText.getText().toString());
+            int port = Integer.parseInt(portText.getText().toString());
 
             Intent moveIntent = new Intent(MainActivity.this, JoystickActivity.class);
             moveIntent.putExtra("ip", ip);
@@ -64,6 +65,22 @@ public class MainActivity extends AppCompatActivity {
                 new String[] { INTERNET_PERM }, INTERNET_PERM_CODE);
     }
 
+    private void requestInternetPermissionNicely() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, INTERNET_PERM)) {
+            // showing explanation
+            new AlertDialog.Builder(this)
+                    .setTitle("Requesting Internet")
+                    .setMessage("This permission is needed for this app to function")
+                    .setPositiveButton("ok", (dialog, which) -> requestInternetPermission())
+                    .setNegativeButton("cancel", (dialog, which) -> dialog.dismiss())
+                    .create().show();
+        }
+        else {
+            // not showing explanation
+            requestInternetPermission();
+        }
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permissions,
@@ -80,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         connectButton.setEnabled(hasInternet);
 
         if (!hasInternet) {
-            requestInternetPermission();
+            requestInternetPermissionNicely();
         }
     }
 }
