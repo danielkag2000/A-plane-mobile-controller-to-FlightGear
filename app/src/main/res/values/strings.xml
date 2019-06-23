@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Ex4</string>
+    <string name="login.ip">IP:</string>
+    <string name="login.port">Port:</string>
+    <string name="empty" />
+    <string name="login.connect" >Connect</string>
 </resources>

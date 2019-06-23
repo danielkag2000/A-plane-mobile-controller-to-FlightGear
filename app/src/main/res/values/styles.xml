@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="InputLabel" parent="Base.Widget.AppCompat.EditText">
+        <item name="android:background">@drawable/nice_edittext</item>
+        <item name="android:textColor">#000</item>
+    </style>
+
 </resources>
