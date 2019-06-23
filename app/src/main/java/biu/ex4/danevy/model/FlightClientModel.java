@@ -29,6 +29,7 @@ public class FlightClientModel implements ClientModel {
 
         } catch (Exception e) {
             Log.e("TCP", "C: Error", e);
+            return;
         }
         isOpen = true;
     }

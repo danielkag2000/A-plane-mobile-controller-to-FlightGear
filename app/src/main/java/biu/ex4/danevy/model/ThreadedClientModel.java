@@ -50,6 +50,7 @@ public class ThreadedClientModel implements ClientModel {
     }
 
     private void addTask(Runnable r) {
-        this.blockingQueue.add(r);
+        try {  this.blockingQueue.put(r); }
+        catch (InterruptedException e) { }
     }
 }
